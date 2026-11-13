@@ -19,6 +19,7 @@ function soon(a, label) { a.removeAttribute("href"); a.textContent = label + " (
 document.querySelectorAll("[data-checkout]").forEach((a) => { if (CONFIG.live) { a.href = CONFIG.checkout[a.dataset.checkout]; a.target = "_blank"; a.rel = "noopener"; } else soon(a, a.textContent); });
 if (!CONFIG.live) { const h = $("enter-key"); if (h) h.parentElement.hidden = true; }
 
+if (document.body.dataset.fmt) $("fmt").value = document.body.dataset.fmt;
 const drop = $("drop"), input = $("file");
 drop.addEventListener("click", () => input.click());
 drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } });

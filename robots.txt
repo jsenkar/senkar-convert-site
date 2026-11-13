@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://statementflip.senkarconsulting.com/sitemap.xml

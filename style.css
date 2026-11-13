@@ -22,3 +22,4 @@ td.neg{color:#a12b2b}td.pos{color:#136c43}
 dialog{border:0;border-radius:12px;padding:22px;max-width:420px;width:92%}dialog input{width:100%}.err{color:#a12b2b;min-height:1.2em}
 #plan-badge{margin-left:10px;color:var(--ok);font-weight:600}
 @media(max-width:600px){.bal{display:none}td:nth-child(4){display:none}}
+.prose h2{margin-top:36px}.prose li{margin:4px 0}.prose .note{color:var(--mut);font-size:14px}

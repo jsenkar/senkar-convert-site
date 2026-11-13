@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Convert Bank of America Statements to Excel and CSV, Private PDF Converter</title>
+<meta name="description" content="Convert Bank of America PDF statements to Excel or CSV in seconds. Nothing is uploaded; free preview.">
+<link rel="canonical" href="https://statementflip.senkarconsulting.com/banks/bank-of-america/">
+<meta property="og:title" content="Convert Bank of America Statements to Excel and CSV, Private PDF Converter"><meta property="og:description" content="Convert Bank of America PDF statements to Excel or CSV in seconds. Nothing is uploaded; free preview."><meta property="og:url" content="https://statementflip.senkarconsulting.com/banks/bank-of-america/"><meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body data-fmt="xlsx">
+<header class="top"><div class="wrap"><a class="brand" href="/"><b>StatementFlip</b></a><nav><a href="/for-bookkeepers/">For bookkeepers</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav></div></header>
+<main>
+<section class="hero wrap">
+  <h1>Convert Bank of America Statements to Excel or CSV</h1>
+  <p class="lead">Bank of America lets you download statements as PDFs, but you can't sort, total or import a PDF. Drop your Bank of America statement here and get a clean spreadsheet in seconds.</p>
+
+  <div id="drop" class="drop" tabindex="0" role="button" aria-label="Choose a PDF statement">
+    <input id="file" type="file" accept="application/pdf,.pdf" hidden>
+    <div class="drop-inner">
+      <strong>Drop your PDF statement here</strong>
+      <span>or click to choose a file</span>
+      <button class="btn" type="button" id="pick">Convert my Bank of America statement — preview free</button>
+    </div>
+  </div>
+  <p class="trust">No sign-up · Nothing uploaded · Excel &amp; CSV · Works with most US banks</p>
+  <p class="privacy"><b>Your statement never leaves your computer.</b> The conversion runs entirely in your browser. Nothing is uploaded, stored, or seen by us, not even the file name. Close the tab and it's gone.</p>
+
+  <div id="status" class="status" hidden></div>
+
+  <div id="result" hidden>
+    <div class="summary" id="summary"></div>
+    <div class="tablewrap"><table id="tbl"><thead><tr><th>Date</th><th>Description</th><th class="r">Amount</th><th class="r bal">Balance</th></tr></thead><tbody></tbody></table></div>
+    <div id="locked" class="locked" hidden></div>
+    <div class="actions">
+      <label>Format
+        <select id="fmt">
+          <option value="xlsx" selected>Excel (.xlsx)</option>
+          <option value="csv">CSV</option>
+          <option value="quickbooks">QuickBooks Online CSV</option>
+          <option value="xero">Xero CSV</option>
+          <option value="qbo">QuickBooks .QBO (beta)</option>
+          <option value="ofx">OFX (Xero, Quicken, others)</option>
+        </select>
+      </label>
+      <button class="btn" id="dl" type="button">Download</button>
+      <button class="btn ghost" id="again" type="button">Convert another</button>
+    </div>
+  </div>
+  
+</section>
+<section class="wrap prose"><h2>How to download your Bank of America statement as a PDF</h2><ol><li>Sign in to Online Banking and open the account.</li><li>Choose <b>Statements &amp; Documents</b>.</li><li>Select the statement and download the PDF.</li></ol><p class="note">Menu names change from time to time. Look for Statements or Documents in your online banking.</p></section><section class="wrap prose"><h2>Why Bank of America CSV downloads aren't enough</h2><p>Online banking CSV exports often only reach back a limited time and don't match the statement period. The PDF statement is the official record. Convert it and your spreadsheet matches it to the cent.</p></section>
+<section class="wrap how"><h2>How it works</h2>
+<ol><li><b>Drop your PDF statement</b> into the box above.</li><li><b>Check the preview</b>: date, description, amount, and balance, laid out in clean columns.</li><li><b>Download Excel or CSV</b>, ready for your spreadsheet, QuickBooks, or Xero.</li></ol></section>
+
+<section class="wrap" id="pricing"><h2>Pricing</h2>
+<div class="plans">
+ <div class="plan"><h3>Free</h3><p class="price">$0</p><p>Convert any statement and preview the first 10 transactions before you pay.</p></div>
+ <div class="plan"><h3>One statement</h3><p class="price">$9</p><p>One statement, any length. No account, no subscription.</p><a class="btn" data-checkout="single" href="#">Buy for $9</a></div>
+ <div class="plan hot"><h3>Unlimited</h3><p class="price">$19<small>/month</small></p><p>Convert as many statements as you like. Cancel anytime.</p><a class="btn" data-checkout="monthly" href="#">Get unlimited</a></div>
+</div>
+<p class="have">Already bought? <a href="#" id="enter-key">Enter your license key</a><span id="plan-badge"></span></p>
+</section>
+<section class="wrap faq" id="faq"><h2>FAQ</h2>
+<h3>Is it safe to convert my bank statement here?</h3><p>Yes. Most converters upload your statement to their servers. Ours doesn't. The PDF is read by your own browser, so there's nothing for us to store or leak.</p>
+<h3>Does it work on scanned statements?</h3><p>It works on digital PDFs downloaded from online banking (the vast majority). Photographed or scanned paper statements aren't supported yet.</p>
+<h3>Which banks are supported?</h3><p>Most US banks and credit cards with downloadable PDF statements. If yours doesn't convert cleanly, email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> and we'll add it, usually within a day.</p>
+<h3>Can I import the file into QuickBooks or Xero?</h3><p>Yes. Pick the QuickBooks Online or Xero CSV in the download menu and use the bank-feed upload. The .QBO and OFX files are in beta.</p>
+<h3>Why not just copy-paste from the PDF?</h3><p>Copy-paste scrambles columns, splits descriptions across lines, and loses negative signs. The converter keeps every transaction on one row with the right sign.</p>
+<h3>Do you offer refunds?</h3><p>If a statement doesn't convert correctly, email us within 7 days for a full refund.</p>
+</section>
+</main>
+<footer><div class="wrap">StatementFlip is a product of Senkar Consulting, LLC · <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> · StatementFlip is not affiliated with Bank of America. Bank names are used only to describe compatible statements.</div></footer>
+<dialog id="keydlg"><form method="dialog"><h3>Enter your license key</h3><p>Find it in your purchase email from Lemon Squeezy.</p><input id="keyin" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" autocomplete="off"><p id="keyerr" class="err"></p><div class="actions"><button class="btn" id="keyok" value="ok">Activate</button><button class="btn ghost" value="cancel">Cancel</button></div></form></dialog>
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>
