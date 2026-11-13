@@ -1,2 +1,2 @@
-# senkar-convert-site
-Static build of the Senkar bank statement converter (deployed to convert.senkarconsulting.com)
+# Generated
+Static build of the converter, copied from the private source repo (jsenkar/senkar-statement-converter, `site/`). Do not edit here.
