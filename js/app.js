@@ -1,11 +1,11 @@
-import * as pdfjsLib from "../vendor/pdf.min.mjs";
+import * as pdfjsLib from "../vendor/pdf.min.js";
 import { extractPages } from "./core/pdftext.js";
 import { parseStatement } from "./core/parser.js";
 import { toCSV, toXLSX, toOFX } from "./core/export.js";
 import { activate, canExportFull, plan, clearLicense } from "./core/license.js";
 import { CONFIG } from "./config.js";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("../vendor/pdf.worker.min.mjs", import.meta.url).href;
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("../vendor/pdf.worker.min.js", import.meta.url).href;
 const $ = (id) => document.getElementById(id);
 let current = null; // parsed result (stays in memory only)
 let currentName = "statement";
