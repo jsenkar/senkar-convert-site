@@ -23,3 +23,7 @@ dialog{border:0;border-radius:12px;padding:22px;max-width:420px;width:92%}dialog
 #plan-badge{margin-left:10px;color:var(--ok);font-weight:600}
 @media(max-width:600px){.bal{display:none}td:nth-child(4){display:none}}
 .prose h2{margin-top:36px}.prose li{margin:4px 0}.prose .note{color:var(--mut);font-size:14px}
+
+.sample .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.sample h3{margin:6px 0}.pdfpeek{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;font:12px/1.6 ui-monospace,Menlo,monospace;overflow:auto;margin:0;white-space:pre}.balcheck{margin-top:14px}
+.about p{max-width:720px}
+@media(max-width:700px){.sample .cols{grid-template-columns:1fr}}
