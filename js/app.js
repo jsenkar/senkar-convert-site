@@ -16,7 +16,10 @@ const fmtDate = (iso) => `${iso.slice(5, 7)}/${iso.slice(8, 10)}/${iso.slice(0, 
 function status(msg, err) { const s = $("status"); s.hidden = !msg; s.textContent = msg || ""; s.className = "status" + (err ? " err" : ""); }
 
 function soon(a, label) { a.removeAttribute("href"); a.textContent = label + " (coming soon)"; a.style.opacity = ".6"; a.style.pointerEvents = "none"; }
-document.querySelectorAll("[data-checkout]").forEach((a) => { if (CONFIG.live) { a.href = CONFIG.checkout[a.dataset.checkout]; a.target = "_blank"; a.rel = "noopener"; } else soon(a, a.textContent); });
+// Outreach ref: ?ref=abc is remembered in this browser and passed to Stripe as client_reference_id.
+(function () { try { const r = new URLSearchParams(location.search).get("ref"); if (r && /^[A-Za-z0-9_-]{1,60}$/.test(r)) localStorage.setItem("sc_ref", r); } catch {} })();
+function checkoutUrl(k) { let u = CONFIG.checkout[k], r = null; try { r = localStorage.getItem("sc_ref"); } catch {} return r && /^[A-Za-z0-9_-]{1,60}$/.test(r) ? u + (u.includes("?") ? "&" : "?") + "client_reference_id=" + r : u; }
+document.querySelectorAll("[data-checkout]").forEach((a) => { if (CONFIG.live) { a.href = checkoutUrl(a.dataset.checkout); a.target = "_blank"; a.rel = "noopener"; } else soon(a, a.textContent); });
 
 
 if (document.body.dataset.fmt) $("fmt").value = document.body.dataset.fmt;
@@ -90,7 +93,7 @@ function render() {
     p.innerHTML = `<b>Free preview: first ${rows.length} of ${r.transactions.length} transactions.</b> Unlock the full statement to see and download everything.`;
     lk.appendChild(p);
     for (const [k, label] of [["single", "Unlock this statement: $9"], ["monthly", "Unlimited: $19/mo"], ["lifetime", "Lifetime: $297"]]) {
-      const a = document.createElement("a"); a.className = "btn" + (k === "monthly" ? "" : " ghost"); a.textContent = label; if (CONFIG.live) { a.href = CONFIG.checkout[k]; a.target = "_blank"; a.rel = "noopener"; } else soon(a, label); lk.appendChild(a);
+      const a = document.createElement("a"); a.className = "btn" + (k === "monthly" ? "" : " ghost"); a.textContent = label; if (CONFIG.live) { a.href = checkoutUrl(k); a.target = "_blank"; a.rel = "noopener"; } else soon(a, label); lk.appendChild(a);
     }
     
   }
