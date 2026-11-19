@@ -2,7 +2,7 @@ import * as pdfjsLib from "../vendor/pdf.min.js";
 import { extractPages } from "./core/pdftext.js";
 import { parseStatement } from "./core/parser.js";
 import { toCSV, toXLSX, toOFX } from "./core/export.js";
-import { activate, canExportFull, plan, clearLicense } from "./core/license.js";
+import { canExportFull, plan, revalidate } from "./core/license.js";
 import { CONFIG } from "./config.js";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL("../vendor/pdf.worker.min.js", import.meta.url).href;
@@ -17,7 +17,7 @@ function status(msg, err) { const s = $("status"); s.hidden = !msg; s.textConten
 
 function soon(a, label) { a.removeAttribute("href"); a.textContent = label + " (coming soon)"; a.style.opacity = ".6"; a.style.pointerEvents = "none"; }
 document.querySelectorAll("[data-checkout]").forEach((a) => { if (CONFIG.live) { a.href = CONFIG.checkout[a.dataset.checkout]; a.target = "_blank"; a.rel = "noopener"; } else soon(a, a.textContent); });
-if (!CONFIG.live) { const h = $("enter-key"); if (h) h.parentElement.hidden = true; }
+
 
 if (document.body.dataset.fmt) $("fmt").value = document.body.dataset.fmt;
 const drop = $("drop"), input = $("file");
@@ -89,10 +89,10 @@ function render() {
     const p = document.createElement("div");
     p.innerHTML = `<b>Free preview: first ${rows.length} of ${r.transactions.length} transactions.</b> Unlock the full statement to see and download everything.`;
     lk.appendChild(p);
-    for (const [k, label] of [["single", "Unlock this statement: $9"], ["monthly", "Unlimited: $19/mo"]]) {
+    for (const [k, label] of [["single", "Unlock this statement: $9"], ["monthly", "Unlimited: $19/mo"], ["lifetime", "Lifetime: $297"]]) {
       const a = document.createElement("a"); a.className = "btn" + (k === "monthly" ? "" : " ghost"); a.textContent = label; if (CONFIG.live) { a.href = CONFIG.checkout[k]; a.target = "_blank"; a.rel = "noopener"; } else soon(a, label); lk.appendChild(a);
     }
-    if (CONFIG.live) { const b = document.createElement("a"); b.href = "#"; b.textContent = "I have a license key"; b.onclick = (e) => { e.preventDefault(); openKey(); }; lk.appendChild(b); }
+    
   }
   $("result").hidden = false;
   $("result").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -118,20 +118,9 @@ $("dl").addEventListener("click", () => {
 });
 $("again").addEventListener("click", () => { current = null; $("result").hidden = true; status(""); window.scrollTo({ top: 0, behavior: "smooth" }); });
 
-// ---- license key dialog
-const dlg = $("keydlg");
-function openKey() { $("keyerr").textContent = ""; dlg.showModal(); }
-$("enter-key").addEventListener("click", (e) => { e.preventDefault(); openKey(); });
-$("keyok").addEventListener("click", async (e) => {
-  e.preventDefault();
-  const btn = e.target; btn.disabled = true; btn.textContent = "Checking…";
-  const res = await activate(CONFIG, $("keyin").value);
-  btn.disabled = false; btn.textContent = "Activate";
-  if (!res.ok) { $("keyerr").textContent = res.error; return; }
-  dlg.close(); badge(); if (current) render();
-});
 function badge() {
   const p = plan();
-  $("plan-badge").textContent = p ? ` ✓ ${p.plan === "single" ? "One-statement" : p.plan === "firm" ? "Firm" : "Unlimited"} license active` : "";
+  const el = $("plan-badge"); if (el) el.textContent = p ? ` ✓ ${({ single: "One-statement", firm: "Firm", lifetime: "Lifetime" })[p.plan] || "Unlimited"} plan active` : "";
 }
 badge();
+revalidate(CONFIG).then(() => { badge(); if (current) render(); });

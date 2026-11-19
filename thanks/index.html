@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Thanks — StatementFlip</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/"><b>StatementFlip</b></a></div></header>
+<main class="wrap" style="padding-top:40px;min-height:50vh">
+  <h1 id="h">Confirming your payment…</h1>
+  <p id="msg" class="lead">One moment.</p>
+  <p><a class="btn" id="go" href="/" hidden>Convert a statement</a></p>
+  <p class="note" id="note" hidden>Your access is saved in this browser. If you switch computers or clear your browser data, email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> and we'll sort it out. Your statements are never uploaded.</p>
+</main>
+<script type="module">
+import { CONFIG } from "/js/config.js";
+import { activateSession } from "/js/core/license.js";
+const q = new URLSearchParams(location.search);
+const names = { single: "one statement", unlimited: "Unlimited", firm: "Firm", lifetime: "Lifetime" };
+const r = await activateSession(CONFIG, q.get("session_id"));
+const h = document.getElementById("h"), m = document.getElementById("msg");
+if (r.ok) {
+  h.textContent = "You're in. Thank you!";
+  m.textContent = `Your ${names[r.plan] || r.plan} plan is active on this device. Go convert a statement.`;
+  document.getElementById("go").hidden = false; document.getElementById("note").hidden = false;
+  history.replaceState(null, "", "/thanks/");
+} else {
+  h.textContent = "We couldn't confirm that yet";
+  m.textContent = r.error + " Email " + CONFIG.supportEmail + " if it keeps happening.";
+}
+</script>
+</body>
+</html>
