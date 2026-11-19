@@ -17,7 +17,8 @@ function status(msg, err) { const s = $("status"); s.hidden = !msg; s.textConten
 
 function soon(a, label) { a.removeAttribute("href"); a.textContent = label + " (coming soon)"; a.style.opacity = ".6"; a.style.pointerEvents = "none"; }
 // Outreach ref: ?ref=abc is remembered in this browser and passed to Stripe as client_reference_id.
-(function () { try { const r = new URLSearchParams(location.search).get("ref"); if (r && /^[A-Za-z0-9_-]{1,60}$/.test(r)) localStorage.setItem("sc_ref", r); } catch {} })();
+(function () { try { const r = new URLSearchParams(location.search).get("ref"); if (r && /^[A-Za-z0-9_-]{1,60}$/.test(r)) localStorage.setItem("sc_ref", r);
+    if (r && /^[A-Za-z0-9_-]{1,60}$/.test(r)) { const k = "sc_seen_" + r + location.pathname; if (!sessionStorage.getItem(k)) { sessionStorage.setItem(k, "1"); fetch("/api/visit.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ref: r, path: location.pathname }), keepalive: true }).catch(() => {}); } } } catch {} })();
 function checkoutUrl(k) { let u = CONFIG.checkout[k], r = null; try { r = localStorage.getItem("sc_ref"); } catch {} return r && /^[A-Za-z0-9_-]{1,60}$/.test(r) ? u + (u.includes("?") ? "&" : "?") + "client_reference_id=" + r : u; }
 document.querySelectorAll("[data-checkout]").forEach((a) => { if (CONFIG.live) { a.href = checkoutUrl(a.dataset.checkout); a.target = "_blank"; a.rel = "noopener"; } else soon(a, a.textContent); });
 
