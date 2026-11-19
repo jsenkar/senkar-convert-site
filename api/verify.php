@@ -20,9 +20,13 @@ require $keyFile;
 if (!defined('STRIPE_KEY')) out(['ok' => false, 'error' => 'not_configured'], 503);
 $base = defined('STRIPE_API_BASE') ? STRIPE_API_BASE : 'https://api.stripe.com';
 
-$ch = curl_init("$base/v1/checkout/sessions/" . rawurlencode($sid) . '?expand[]=subscription');
-curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 15, CURLOPT_USERPWD => STRIPE_KEY . ':']);
-$raw = curl_exec($ch); $http = curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
+function stripe_get($url) {
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 15, CURLOPT_USERPWD => STRIPE_KEY . ':']);
+    $raw = curl_exec($ch); $http = curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
+    return [$raw, $http];
+}
+[$raw, $http] = stripe_get("$base/v1/checkout/sessions/" . rawurlencode($sid) . '?expand[]=subscription');
 if ($raw === false) out(['ok' => false, 'error' => 'upstream'], 502);
 $s = json_decode($raw, true);
 if ($http === 404 || !is_array($s) || !isset($s['id'])) out(['ok' => false, 'error' => 'not_found'], 404);
@@ -39,5 +43,13 @@ $active = $paid;
 if ($mode === 'subscription') {
     $st = $s['subscription']['status'] ?? '';
     $active = $paid && in_array($st, ['active', 'trialing', 'past_due'], true);
+}
+// Refunds: a fully refunded one-time payment no longer unlocks. Needs PaymentIntents/Charges read on the key;
+// if that lookup fails we keep the paid result rather than lock out a real customer.
+if ($active && $mode === 'payment' && !empty($s['payment_intent'])) {
+    [$pr, $ph] = stripe_get("$base/v1/payment_intents/" . rawurlencode((string)$s['payment_intent']) . '?expand[]=latest_charge');
+    $pi = $ph === 200 ? json_decode($pr, true) : null;
+    $ch2 = is_array($pi) ? ($pi['latest_charge'] ?? null) : null;
+    if (is_array($ch2) && (($ch2['refunded'] ?? false) === true || ((int)($ch2['amount_refunded'] ?? 0) >= $amount && $amount > 0))) $active = false;
 }
 out(['ok' => true, 'plan' => $plan, 'active' => $active, 'test' => ($s['livemode'] ?? true) === false]);
