@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security and Privacy: How StatementFlip Handles Your Statements</title>
+<meta name="description" content="Your bank statement is read in your browser and is never uploaded or stored. Here is exactly what happens, and how to check it yourself.">
+<link rel="canonical" href="https://statementflip.senkarconsulting.com/security/">
+<meta property="og:title" content="Security and Privacy: How StatementFlip Handles Your Statements"><meta property="og:description" content="Your bank statement is read in your browser and is never uploaded or stored. Here is exactly what happens, and how to check it yourself."><meta property="og:url" content="https://statementflip.senkarconsulting.com/security/"><meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body data-fmt="xlsx">
+<header class="top"><div class="wrap"><a class="brand" href="/"><b>StatementFlip</b></a><nav><a href="/for-bookkeepers/">For bookkeepers</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav></div></header>
+<main>
+<section class="hero wrap">
+  <h1>Security and privacy</h1>
+  <p class="lead">The short version: your statement is converted on your own computer. The file is not uploaded to us or anyone else.</p>
+
+  <div id="drop" class="drop" tabindex="0" role="button" aria-label="Choose a PDF statement">
+    <input id="file" type="file" accept="application/pdf,.pdf" hidden>
+    <div class="drop-inner">
+      <strong>Drop your PDF statement here</strong>
+      <span>or click to choose a file</span>
+      <button class="btn" type="button" id="pick">Convert my statement — preview free</button>
+    </div>
+  </div>
+  <p class="trust">No sign-up · Nothing uploaded · Excel &amp; CSV · Works with most US banks</p>
+  <p class="privacy"><b>Your statement never leaves your computer.</b> The conversion runs entirely in your browser. Nothing is uploaded, stored, or seen by us, not even the file name. Close the tab and it's gone.</p>
+
+  <div id="status" class="status" hidden></div>
+
+  <div id="result" hidden>
+    <div class="summary" id="summary"></div>
+    <div class="tablewrap"><table id="tbl"><thead><tr><th>Date</th><th>Description</th><th class="r">Amount</th><th class="r bal">Balance</th></tr></thead><tbody></tbody></table></div>
+    <div id="locked" class="locked" hidden></div>
+    <div class="actions">
+      <label>Format
+        <select id="fmt">
+          <option value="xlsx" selected>Excel (.xlsx)</option>
+          <option value="csv">CSV</option>
+          <option value="quickbooks">QuickBooks Online CSV</option>
+          <option value="xero">Xero CSV</option>
+          <option value="qbo">QuickBooks .QBO (beta)</option>
+          <option value="ofx">OFX (Xero, Quicken, others)</option>
+        </select>
+      </label>
+      <button class="btn" id="dl" type="button">Download</button>
+      <button class="btn ghost" id="again" type="button">Convert another</button>
+    </div>
+  </div>
+  
+</section>
+<section class="wrap prose"><h2>What happens to your statement</h2><ul><li>The PDF is read by code running in your browser tab. The page loads that code once, and the conversion itself makes no network request.</li><li>We never receive the file, its name, or any transactions. We have no server copy to lose, leak or hand over.</li><li>Closing the tab discards it. We do not keep your statements, and there are no accounts to log into.</li></ul></section><section class="wrap prose"><h2>Check it yourself</h2><ol><li>Open this page, then open your browser's developer tools (F12, or right-click and choose Inspect) and go to the <b>Network</b> tab.</li><li>Drop in a statement and convert it.</li><li>Look at the Network tab. You will see no upload and no request carrying your file or your transactions.</li><li>For a firmer test, disconnect from the internet after the page loads. The conversion still works.</li></ol></section><section class="wrap prose"><h2>The only things that do leave your browser</h2><ul><li><b>Payment:</b> checkout happens on Stripe's own page. Card details go to Stripe, not to us.</li><li><b>Unlocking after payment:</b> when you return from Stripe, the page sends one thing to our server: the Stripe checkout session ID. Our server asks Stripe whether that session was paid and which plan it was, then replies. Subscribers' pages repeat this check about once a day. No statement data is part of it.</li><li><b>Ordinary web hosting:</b> our host, like any website host, may log your IP address and the pages you request. We do not use advertising trackers.</li></ul></section><section class="wrap prose"><h2>What we cannot promise</h2><p>Your access is saved in your own browser, so it is only as private as your own computer. Use a computer you trust, and avoid public ones. This page describes how the site works today. If that ever changes, we will say so here before it does. Questions? Email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a>.</p></section>
+<section class="wrap how"><h2>How it works</h2>
+<ol><li><b>Drop your PDF statement</b> into the box above.</li><li><b>Check the preview</b>: date, description, amount, and balance, laid out in clean columns.</li><li><b>Download Excel or CSV</b>, ready for your spreadsheet, QuickBooks, or Xero.</li></ol></section>
+
+<section class="wrap" id="pricing"><h2>Pricing</h2>
+<div class="plans">
+ <div class="plan"><h3>Free</h3><p class="price">$0</p><p>Convert any statement and preview the first 10 transactions before you pay.</p></div>
+ <div class="plan"><h3>One statement</h3><p class="price">$9</p><p>One statement, any length. No account, no subscription.</p><a class="btn" data-checkout="single" href="#">Buy for $9</a></div>
+ <div class="plan hot"><h3>Unlimited</h3><p class="price">$19<small>/month</small></p><p>Convert as many statements as you like. Cancel anytime.</p><a class="btn" data-checkout="monthly" href="#">Get unlimited</a></div>
+ <div class="plan"><h3>Lifetime</h3><p class="price">$297</p><p>Pay once, unlimited forever. Founding members only: limited to the first 25.</p><a class="btn" data-checkout="lifetime" href="#">Become a founding member</a></div>
+</div>
+<p class="have">Paid? You're unlocked on the device you paid from.<span id="plan-badge"></span> Lost access or need a hand? Email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a>.</p>
+</section>
+<section class="wrap faq" id="faq"><h2>FAQ</h2>
+<h3>Is it safe to convert my bank statement here?</h3><p>Yes. Most converters upload your statement to their servers. Ours doesn't. The PDF is read by your own browser, so there's nothing for us to store or leak.</p>
+<h3>Does it work on scanned statements?</h3><p>It works on digital PDFs downloaded from online banking (the vast majority). Photographed or scanned paper statements aren't supported yet.</p>
+<h3>Which banks are supported?</h3><p>Most US banks and credit cards with downloadable PDF statements. If yours doesn't convert cleanly, email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> and we'll add it, usually within a day.</p>
+<h3>Can I import the file into QuickBooks or Xero?</h3><p>Yes. Pick the QuickBooks Online or Xero CSV in the download menu and use the bank-feed upload. The .QBO and OFX files are in beta.</p>
+<h3>Why not just copy-paste from the PDF?</h3><p>Copy-paste scrambles columns, splits descriptions across lines, and loses negative signs. The converter keeps every transaction on one row with the right sign.</p>
+<h3>Do you offer refunds?</h3><p>If a statement doesn't convert correctly, email us within 7 days for a full refund.</p>
+</section>
+</main>
+<footer><div class="wrap">StatementFlip is a product of Senkar Consulting, LLC · <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> · <a href="/security/">Security and privacy</a> · StatementFlip is not affiliated with any bank. Bank names are used only to describe compatible statements.</div></footer>
+
+<script type="module" src="/js/app.js"></script>
+</body>
+</html>
