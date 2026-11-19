@@ -80,6 +80,7 @@ function render() {
   chip(`${r.totals.count} transactions`);
   chip(`${r.kind === "card" ? "Charges" : "Out"}: ${fmtMoney(Math.abs(r.totals.out))}`);
   chip(`${r.kind === "card" ? "Payments & credits" : "In"}: ${fmtMoney(r.totals.in)}`);
+  if (!r.reconcile) chip("No opening/closing balance found on this statement, so no balance check", "warn");
   if (r.reconcile) r.reconcile.ok ? chip("✓ Totals match the statement's opening and closing balance", "ok") : chip(`Check totals: off by ${fmtMoney(Math.abs(r.reconcile.diff))}. Review the rows before using`, "warn");
   else chip("Couldn't find opening/closing balance to double-check totals", "warn");
   if (r.period.guessed) chip("Statement year was guessed. Check the dates", "warn");
@@ -91,7 +92,7 @@ function render() {
   if (!lk.hidden) {
     lk.textContent = "";
     const p = document.createElement("div");
-    p.innerHTML = `<b>Free preview: first ${rows.length} of ${r.transactions.length} transactions.</b> Unlock the full statement to see and download everything.`;
+    p.innerHTML = `<b>Free: the first ${rows.length} of ${r.transactions.length} transactions.</b> Unlock the full statement to see and download all ${r.transactions.length}.`;
     lk.appendChild(p);
     for (const [k, label] of [["single", "Unlock this statement: $9"], ["monthly", "Unlimited: $19/mo"], ["lifetime", "Lifetime: $297"]]) {
       const a = document.createElement("a"); a.className = "btn" + (k === "monthly" ? "" : " ghost"); a.textContent = label; if (CONFIG.live) { a.href = checkoutUrl(k); a.target = "_blank"; a.rel = "noopener"; } else soon(a, label); lk.appendChild(a);
