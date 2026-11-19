@@ -1,1 +1,0 @@
-<?php header('content-type:text/plain'); echo $_SERVER['DOCUMENT_ROOT'],"\n",__DIR__,"\n",realpath($_SERVER['DOCUMENT_ROOT'].'/..'),"\n",ini_get('open_basedir'),"\n"; foreach([dirname(__DIR__,2).'/stripe-key.php',dirname(__DIR__,3).'/stripe-key.php'] as $p) echo $p,' ',is_file($p)?'YES':'no',"\n";
