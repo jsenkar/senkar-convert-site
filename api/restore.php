@@ -22,6 +22,15 @@ if (is_file($tf)) foreach (explode("\n", (string)file_get_contents($tf)) as $t) 
 if (count($hits) >= 30) out(['ok' => false, 'error' => 'busy'], 429);
 $hits[] = $now; file_put_contents($tf, implode("\n", $hits), LOCK_EX);
 
+require_once __DIR__ . '/smtp.php';
+// A fully refunded one-time payment no longer counts (same rule as verify.php; lookup failure keeps the purchase).
+function sf_refunded($base, $pi, $amount) {
+    $ch = curl_init("$base/v1/payment_intents/" . rawurlencode($pi) . '?expand[]=latest_charge');
+    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 15, CURLOPT_USERPWD => STRIPE_KEY . ':']);
+    $raw = curl_exec($ch); $http = curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
+    $p = $http === 200 ? json_decode($raw, true) : null; $c = is_array($p) ? ($p['latest_charge'] ?? null) : null;
+    return is_array($c) && (($c['refunded'] ?? false) === true || ((int)($c['amount_refunded'] ?? 0) >= $amount && $amount > 0));
+}
 $plans = ['payment' => [900 => 'single', 29700 => 'lifetime'], 'subscription' => [1900 => 'unlimited', 9700 => 'firm']];
 $rank = ['lifetime' => 4, 'firm' => 3, 'unlimited' => 2, 'single' => 1];
 $best = null;
@@ -36,6 +45,7 @@ foreach (array_unique([$email, strtolower($email)]) as $e) {
         $mode = $s['mode'] ?? ''; $plan = $plans[$mode][(int)($s['amount_total'] ?? 0)] ?? null;
         if ($plan === null) continue;
         if ($mode === 'subscription' && !in_array($s['subscription']['status'] ?? '', ['active', 'trialing', 'past_due'], true)) continue;
+        if ($mode === 'payment' && !empty($s['payment_intent']) && sf_refunded($base, (string)$s['payment_intent'], (int)($s['amount_total'] ?? 0))) continue;
         if ($best === null || $rank[$plan] > $rank[$best['plan']]) $best = ['plan' => $plan, 'id' => $s['id']];
     }
 }
@@ -47,6 +57,6 @@ if ($best !== null) {
           . "Your statements are never uploaded. If you didn't ask for this, you can ignore this email.\n\nStatementFlip, a product of Senkar Consulting, LLC\nsupport@senkarconsulting.com\n";
     $sink = getenv('STATEMENTFLIP_MAIL_SINK');
     if ($sink) file_put_contents($sink, "TO: $email\n$body\n---\n", FILE_APPEND);
-    else @mail($email, 'Your StatementFlip access link', $body, "From: StatementFlip <support@senkarconsulting.com>\r\nReply-To: support@senkarconsulting.com\r\nContent-Type: text/plain; charset=utf-8");
+    else sf_send_mail($email, 'Your StatementFlip access link', $body);
 }
 out(['ok' => true]);
