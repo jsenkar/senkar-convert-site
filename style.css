@@ -322,3 +322,12 @@ footer{text-align:center;margin:30px 0 30px;padding-top:24px;border-top:1px soli
 th.bal[hidden]{display:none}
 .hero .drop.pulse{animation:droppulse 1.4s var(--ease) both}
 @keyframes droppulse{0%{box-shadow:0 0 0 0 rgba(125,176,255,.9),0 40px 100px -40px rgba(47,123,255,.7)}40%{transform:scale(1.03);box-shadow:0 0 0 14px rgba(125,176,255,.25),0 50px 120px -30px rgba(47,123,255,.9)}100%{transform:none;box-shadow:0 0 0 0 rgba(125,176,255,0),0 40px 100px -40px rgba(47,123,255,.7)}}
+/* pricing v3: three plans + early-supporter banner */
+.pricing .plans{grid-template-columns:repeat(3,minmax(0,1fr))}.pricing .plan,.pricing .plan.wide{grid-column:auto}
+.pricing .price small{margin-left:4px}
+.pricing .sub a{color:var(--acc2);font-weight:600;text-decoration:none;border-bottom:1px solid currentColor}
+.earlybird{display:flex;align-items:center;gap:18px;flex-wrap:wrap;max-width:1080px;margin:22px auto 0;padding:16px 22px;border-radius:20px;background:linear-gradient(135deg,#fff8ec,#fff0f7 60%,#eef4ff);border:1px solid #f3e1c8}
+.earlybird p{margin:0;flex:1 1 320px;color:#5b5f6b}.earlybird p b{color:var(--ink)}
+.eb-tag{font:700 11px var(--font);letter-spacing:.08em;text-transform:uppercase;color:#9a5b00;background:#fff3dc;border:1px solid #f6d7a7;border-radius:999px;padding:5px 10px}
+.earlybird .btn{padding:10px 20px;font-size:14px}
+@media(max-width:900px){.pricing .plans{grid-template-columns:minmax(0,1fr)}.pricing .plan:last-child{grid-column:auto}}

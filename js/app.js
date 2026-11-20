@@ -109,7 +109,7 @@ function render(scroll) {
     const p = document.createElement("div");
     p.innerHTML = `<b>Free: the first ${rows.length} of ${r.transactions.length} transactions.</b> Unlock the full statement to see and download all ${r.transactions.length}.`;
     lk.appendChild(p);
-    for (const [k, label] of [["single", "Unlock this statement: $9"], ["monthly", "Unlimited: $19/mo"], ["lifetime", "Lifetime: $297"]]) {
+    for (const [k, label] of [["single", "Unlock this statement: $9"], ["monthly", "Pro, unlimited: $19/mo"], ["lifetime", "Lifetime: $297"]]) {
       const a = document.createElement("a"); a.className = "btn" + (k === "monthly" ? "" : " ghost"); a.textContent = label; if (CONFIG.live) { a.href = checkoutUrl(k); a.target = "_blank"; a.rel = "noopener"; } else soon(a, label); lk.appendChild(a);
     }
     
@@ -140,7 +140,7 @@ $("again").addEventListener("click", () => { current = null; $("result").hidden 
 
 function badge() {
   const p = plan();
-  const el = $("plan-badge"); if (el) el.textContent = p ? ` ✓ ${({ single: "One-statement", firm: "Firm", lifetime: "Lifetime", tester: "Tester" })[p.plan] || "Unlimited"} plan active${p.expiresAt ? " until " + new Date(p.expiresAt).toLocaleDateString() : ""}` : "";
+  const el = $("plan-badge"); if (el) el.textContent = p ? ` ✓ ${({ single: "One-statement", firm: "Firm", lifetime: "Lifetime", tester: "Tester" })[p.plan] || "Pro"} plan active${p.expiresAt ? " until " + new Date(p.expiresAt).toLocaleDateString() : ""}` : "";
 }
 badge();
 revalidate(CONFIG).then(() => { badge(); if (current) render(); });
