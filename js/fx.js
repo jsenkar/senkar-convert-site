@@ -1,6 +1,10 @@
 // Visual effects only: aurora, floating cards, cursor glow, scroll reveals, looping demo, proof tabs,
 // pricing tilt + count-up, drop-anywhere. No network requests, never reads statement data.
 (function () {
+  // Always open at the top (the hero). Stop the browser from restoring an old scroll position on reload/back.
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+  if (!location.hash || location.hash === "#top") { window.scrollTo(0, 0); addEventListener("load", function () { if (!location.hash) window.scrollTo(0, 0); }); }
+  addEventListener("pageshow", function (e) { if (e.persisted && !location.hash) window.scrollTo(0, 0); });
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   var de = document.documentElement, $ = function (s, r) { return (r || document).querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var top = $(".top"), hero = $(".hero");
