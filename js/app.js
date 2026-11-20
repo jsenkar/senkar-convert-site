@@ -125,7 +125,7 @@ $("again").addEventListener("click", () => { current = null; $("result").hidden 
 
 function badge() {
   const p = plan();
-  const el = $("plan-badge"); if (el) el.textContent = p ? ` ✓ ${({ single: "One-statement", firm: "Firm", lifetime: "Lifetime" })[p.plan] || "Unlimited"} plan active` : "";
+  const el = $("plan-badge"); if (el) el.textContent = p ? ` ✓ ${({ single: "One-statement", firm: "Firm", lifetime: "Lifetime", tester: "Tester" })[p.plan] || "Unlimited"} plan active${p.expiresAt ? " until " + new Date(p.expiresAt).toLocaleDateString() : ""}` : "";
 }
 badge();
 revalidate(CONFIG).then(() => { badge(); if (current) render(); });

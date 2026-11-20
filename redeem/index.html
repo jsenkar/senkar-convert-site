@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redeem a Tester Code | StatementFlip</title>
+<meta name="description" content="Have a StatementFlip tester code? Redeem it here for 30 days of unlimited conversions in this browser.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://statementflip.senkarconsulting.com/redeem/">
+<meta property="og:title" content="Redeem a Tester Code | StatementFlip"><meta property="og:description" content="Have a StatementFlip tester code? Redeem it here for 30 days of unlimited conversions in this browser."><meta property="og:url" content="https://statementflip.senkarconsulting.com/redeem/"><meta property="og:type" content="website">
+<meta name="theme-color" content="#05060b"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:site_name" content="StatementFlip"><meta property="og:image" content="https://statementflip.senkarconsulting.com/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="/style.css">
+</head>
+<body data-fmt="xlsx">
+<header class="top"><div class="wrap"><a class="brand" href="/"><b>StatementFlip</b></a><nav aria-label="Main"><a href="/#tools">Tools</a><a href="/for-bookkeepers/">For bookkeepers</a><a href="/#pricing">Pricing</a><a href="/security/">Security</a><a href="/#faq">FAQ</a><a class="navcta" href="/">Try it free</a></nav></div></header>
+<main>
+<section class="hero wrap" id="top">
+  <h1>Redeem a tester code</h1>
+  <p class="lead">Got a tester code from us? Enter it here to unlock unlimited conversions in this browser for 30 days. No payment, no account.</p>
+
+</section>
+<section class="wrap prose"><form id="rf" class="actions" style="align-items:end"><label>Tester code<input id="code" required autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="FLIPTEST-XXXX-XXXX" style="min-width:280px;text-transform:uppercase"></label><button class="btn" id="rb" type="submit">Redeem</button></form><p id="rmsg" class="note" role="status"></p><p id="go" hidden><a class="btn" href="/">Convert a statement</a></p><p class="note">Each code works once. Only the code is sent to our server to check it; your statements are never involved and never leave your computer. Access is saved in this browser, so redeem it on the computer you'll use. Questions? Email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a>.</p></section>
+<script type="module">
+import { redeemCode } from "/js/core/license.js";
+const q = new URLSearchParams(location.search).get("code"); if (q) document.getElementById("code").value = q;
+document.getElementById("rf").addEventListener("submit", async (e) => {
+  e.preventDefault(); const m = document.getElementById("rmsg"), b = document.getElementById("rb"); b.disabled = true; m.textContent = "Checking…";
+  const r = await redeemCode(document.getElementById("code").value.trim());
+  m.textContent = r.ok ? (r.kept ? "Code accepted. You already have a paid plan here, so we kept it." : "You're in. Unlimited conversions in this browser for the next 30 days.") : r.error;
+  document.getElementById("go").hidden = !r.ok; b.disabled = false;
+});
+</script>
+
+
+
+
+<nav class="wrap morelinks" aria-label="Converters and banks"><div><b>Converters</b><a href="/bank-statement-to-excel/">Bank statement to Excel</a><a href="/bank-statement-to-csv/">Bank statement to CSV</a><a href="/credit-card-statement-to-excel/">Credit card statement to Excel</a><a href="/for-bookkeepers/">For bookkeepers</a></div><div><b>Banks</b><a href="/banks/chase/">Chase</a><a href="/banks/bank-of-america/">Bank of America</a><a href="/banks/wells-fargo/">Wells Fargo</a><a href="/banks/capital-one/">Capital One</a><a href="/banks/citi/">Citi</a></div><div><b>Company</b><a href="/security/">Security and privacy</a><a href="/restore/">Restore access</a><a href="/refunds/">Refunds</a><a href="mailto:support@senkarconsulting.com">Contact</a></div></nav>
+</main>
+<footer><div class="wrap">StatementFlip is a product of Senkar Consulting, LLC · <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> · <a href="/security/">Security and privacy</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/refunds/">Refunds</a> · StatementFlip is not affiliated with any bank. Bank names are used only to describe compatible statements.</div></footer>
+
+
+<script src="/js/fx.js" defer></script>
+</body>
+</html>

@@ -5,7 +5,8 @@ const DAY = 86400000;
 const get = () => { try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch { return null; } };
 const set = (v) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
 
-export function plan() { const l = get(); return l && l.active ? l : null; }
+const live = (l) => !!l && l.active && !(l.expiresAt && Date.now() > l.expiresAt);
+export function plan() { const l = get(); return live(l) ? l : null; }
 export function clearLicense() { try { localStorage.removeItem(KEY); } catch {} }
 
 export function fingerprint(result) {
@@ -31,6 +32,18 @@ export async function activateSession(config, sessionId) {
   return { ok: true, plan: j.plan };
 }
 
+/** Tester code: single-use, checked by /api/redeem.php; unlocks unlimited in this browser for 30 days. Only the code is sent. */
+export async function redeemCode(code) {
+  let r, j;
+  try { r = await fetch("/api/redeem.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code }) }); j = await r.json().catch(() => ({})); }
+  catch { return { ok: false, error: "Couldn't reach the server. Check your connection and try again." }; }
+  if (!j.ok) return { ok: false, error: j.error === "used" ? "That code has already been used." : "That code isn't valid. Check it and try again." };
+  const cur = plan();
+  if (cur && cur.plan !== "single" && cur.plan !== "tester") return { ok: true, plan: cur.plan, kept: true };
+  set({ plan: "tester", active: true, code: true, checkedAt: Date.now(), expiresAt: Date.now() + (j.days || 30) * DAY, usedFor: [] });
+  return { ok: true, plan: "tester" };
+}
+
 /** Re-check subscriptions about once a day so a cancelled plan stops unlocking. Network trouble never locks anyone out within 7 days. */
 export async function revalidate(config) {
   const l = get();
@@ -46,7 +59,7 @@ export async function revalidate(config) {
 /** Can this statement be fully exported? A $9 purchase covers exactly one statement. */
 export function canExportFull(result) {
   const l = get();
-  if (!l || !l.active) return false;
+  if (!live(l)) return false;
   if (l.plan !== "single") return true;
   const fp = fingerprint(result);
   l.usedFor = l.usedFor || [];
