@@ -2,15 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>StatementFlip — Bank statement PDF to Excel, privately</title>
 <meta name="description" content="StatementFlip turns PDF bank statements into Excel or CSV in seconds. It runs in your browser, so your statement is never uploaded. Free: first 10 transactions.">
+<link rel="canonical" href="https://statementflip.senkarconsulting.com/">
+<meta name="theme-color" content="#05060b">
+<meta property="og:site_name" content="StatementFlip"><meta property="og:title" content="StatementFlip — Bank statement PDF to Excel, privately"><meta property="og:description" content="Turn PDF bank statements into Excel or CSV in seconds. Runs in your browser, so your statement is never uploaded."><meta property="og:url" content="https://statementflip.senkarconsulting.com/"><meta property="og:type" content="website"><meta property="og:image" content="https://statementflip.senkarconsulting.com/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
+<!--LD--><!--/LD-->
 </head>
-<body>
-<header class="top"><div class="wrap"><a class="brand" href="/"><b>StatementFlip</b></a><nav><a href="/for-bookkeepers/">For bookkeepers</a><a href="#pricing">Pricing</a><a href="/security/">Security</a><a href="#faq">FAQ</a></nav></div></header>
-<main>
-<section class="hero wrap">
+<body class="home">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="/"><b>StatementFlip</b></a><nav aria-label="Main"><a href="#tools">Tools</a><a href="/for-bookkeepers/">For bookkeepers</a><a href="#pricing">Pricing</a><a href="/security/">Security</a><a href="#faq">FAQ</a><a class="navcta" href="#top">Try it free</a></nav></div></header>
+<main id="main">
+<section class="hero wrap hero-full" id="top">
   <p class="eyebrow">Bank statement PDF to Excel, privately</p>
   <h1>Statement to spreadsheet <span class="grad">in seconds.</span></h1>
   <p class="lead"><b>StatementFlip</b> is a bank statement converter. Turn any PDF bank statement into a clean spreadsheet: dates, descriptions, amounts and balances in tidy columns. It runs privately in your browser, so your financial data is never uploaded.</p>
@@ -19,12 +25,16 @@
   <div id="drop" class="drop" tabindex="0" role="button" aria-label="Choose a PDF statement">
     <input id="file" type="file" accept="application/pdf,.pdf" hidden>
     <div class="drop-inner">
+      <svg class="drop-ico" viewBox="0 0 64 64" width="56" height="56" aria-hidden="true"><rect x="12" y="6" width="32" height="42" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M19 17h18M19 25h18M19 33h11" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect class="drop-ico-grid" x="28" y="30" width="28" height="28" rx="5" fill="#0b1226" stroke="currentColor" stroke-width="3"/><path class="drop-ico-grid" d="M28 39h28M28 48h28M38 30v28" stroke="currentColor" stroke-width="2.5"/></svg>
       <strong>Drop your PDF statement here</strong>
-      <span>or click to choose a file</span>
+      <span class="drop-sub">or click to choose a file</span>
+      <span class="drop-over-msg" aria-hidden="true">Let go to convert. It stays on this device.</span>
       <button class="btn" type="button" id="pick">Convert my statement — preview free</button>
     </div>
+    <span class="drop-scan" aria-hidden="true"></span>
   </div>
   <p class="trust"><span>No sign-up</span><span>Nothing uploaded</span><span>Excel &amp; CSV</span><span>Works with most US banks</span></p>
+  <p class="teaser">Free preview of the first 10 transactions · Unlock the full statement from $9 · <a href="#pricing">See pricing</a></p>
   <p class="privacy"><b>Your statement never leaves your computer.</b> The conversion runs entirely in your browser. Nothing is uploaded, stored, or seen by us, not even the file name. Close the tab and it's gone.</p>
 
   <div id="status" class="status" hidden></div>
@@ -49,52 +59,125 @@
     </div>
   </div>
   <!--/WIDGET-->
+  <a class="scrollcue" href="#how" aria-label="Scroll to how it works"><span></span></a>
 </section>
 
+<!--HOW--><section class="wrap how" id="how"><h2>How it works</h2>
+<p class="sub">Four steps. About a minute, start to finish.</p>
+<ol>
+<li><div class="hv hv-drop" aria-hidden="true"><span class="hv-file">PDF</span><span class="hv-zone"></span></div><b>Drop your PDF statement</b> into the box above.</li>
+<li><div class="hv hv-prev" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="hv-ok">✓</span></div><b>Check the preview</b>: date, description, amount, and balance, laid out in clean columns. The first 10 transactions are free, with the balance check.</li>
+<li><div class="hv hv-dl" aria-hidden="true"><span>XLSX</span><span>CSV</span><span>QBO CSV</span><span>Xero</span></div><b>Download Excel or CSV</b>, ready for your spreadsheet, QuickBooks, or Xero. Unlock the full statement from $9.</li>
+<li><div class="hv hv-bank" aria-hidden="true"><span class="hv-menu">Statements</span><span class="hv-cursor"></span></div><b>Tip: finding your PDF</b> In online banking, look for Statements or Documents and download the month as a PDF. Scanned or photographed paper statements aren't supported yet.</li>
+</ol>
+<p class="device"><b>What stays on your device:</b> the PDF, its file name and every transaction. The converter runs in this browser tab, and nothing is uploaded.</p></section><!--/HOW-->
 
-<!--HOW--><section class="wrap how"><h2>How it works</h2>
-<ol><li><b>Drop your PDF statement</b> into the box above.</li><li><b>Check the preview</b>: date, description, amount, and balance, laid out in clean columns.</li><li><b>Download Excel or CSV</b>, ready for your spreadsheet, QuickBooks, or Xero.</li></ol></section><!--/HOW-->
-
-<!--SAMPLE--><section class="wrap sample" id="sample"><h2>See what you get</h2>
+<!--SAMPLE--><section class="story" id="sample" data-step="3"><div class="story-pin"><div class="wrap story-grid">
+<div class="story-copy">
+<h2>See what you get</h2>
 <p class="note">A made-up 70-transaction checking statement, first six rows shown. Your real file has every row.</p>
-<div class="cols"><div><h3>In the PDF</h3><pre class="pdfpeek">10/30  CITY OF AUSTIN UTILITIES WEB PMT   -352.66   4,881.44
+<ol class="story-steps">
+<li data-s="0"><b>Your PDF</b><span>Columns that fall apart when you copy-paste them.</span></li>
+<li data-s="1"><b>Clean rows</b><span>One transaction per row, with the right sign.</span></li>
+<li data-s="2"><b>Balance check</b><span>Opening, plus in, minus out, equals closing.</span></li>
+<li data-s="3"><b>Download</b><span>Excel, CSV, QuickBooks Online or Xero CSV.</span></li>
+</ol>
+</div>
+<div class="stage">
+<div class="paper"><div class="paper-head" aria-hidden="true"><i></i><i></i><i></i></div><h3>In the PDF</h3><pre class="pdfpeek">10/30  CITY OF AUSTIN UTILITIES WEB PMT   -352.66   4,881.44
 10/30  WALGREENS #5521                    -487.04   4,394.40
 10/30  CITY OF AUSTIN UTILITIES WEB PMT   -562.27   3,832.13
 10/31  SHELL OIL 57444 AUSTIN TX          -606.78   3,225.35
 11/01  COSTCO WHSE #0681                  -845.54   2,379.81
 11/02  COSTCO WHSE #0681                  -806.33   1,573.48</pre></div>
-<div><h3>In your spreadsheet</h3><div class="tablewrap"><table><thead><tr><th>Date</th><th>Description</th><th class="r">Amount</th><th class="r">Balance</th></tr></thead><tbody>
+<div class="sheet"><h3>In your spreadsheet</h3><div class="tablewrap"><table><thead><tr><th>Date</th><th>Description</th><th class="r">Amount</th><th class="r">Balance</th></tr></thead><tbody>
 <tr><td>2026-10-30</td><td>CITY OF AUSTIN UTILITIES WEB PMT</td><td class="r neg">-352.66</td><td class="r">4881.44</td></tr>
 <tr><td>2026-10-30</td><td>WALGREENS #5521</td><td class="r neg">-487.04</td><td class="r">4394.40</td></tr>
 <tr><td>2026-10-30</td><td>CITY OF AUSTIN UTILITIES WEB PMT</td><td class="r neg">-562.27</td><td class="r">3832.13</td></tr>
 <tr><td>2026-10-31</td><td>SHELL OIL 57444 AUSTIN TX</td><td class="r neg">-606.78</td><td class="r">3225.35</td></tr>
 <tr><td>2026-11-01</td><td>COSTCO WHSE #0681</td><td class="r neg">-845.54</td><td class="r">2379.81</td></tr>
-<tr><td>2026-11-02</td><td>COSTCO WHSE #0681</td><td class="r neg">-806.33</td><td class="r">1573.48</td></tr></tbody></table></div></div></div>
-<p class="balcheck"><span class="chip ok">✓ Totals match the statement's opening and closing balance</span> Opening $5,234.10, plus what came in, minus what went out, equals the closing $16,585.44 printed on the statement. If a statement doesn't balance, we tell you by how much before you use the file.</p></section><!--/SAMPLE-->
+<tr><td>2026-11-02</td><td>COSTCO WHSE #0681</td><td class="r neg">-806.33</td><td class="r">1573.48</td></tr></tbody></table></div></div>
+<div class="checkchip"><span class="chip ok">✓ Totals match the statement's opening and closing balance</span></div>
+<div class="dlchip" aria-hidden="true"><b>XLSX</b><span>statement.xlsx</span><em>✓ Saved</em></div>
+</div>
+</div></div>
+<p class="balcheck wrap">Opening $5,234.10, plus what came in, minus what went out, equals the closing $16,585.44 printed on the statement. If a statement doesn't balance, we tell you by how much before you use the file.</p>
+</section><!--/SAMPLE-->
 
-<!--REVIEWS--><section class="wrap reviews" id="reviews" data-view="grid" hidden></section>
-<!--PRICING--><section class="wrap" id="pricing"><h2>Pricing</h2>
+<!--PROOF--><section class="wrap proof" id="proof"><h2>Don't take our word for it.<br><span class="soft">Check it yourself.</span></h2>
+<div class="tabs" role="tablist" aria-label="What you can check">
+<button role="tab" id="t-priv" aria-controls="p-priv" aria-selected="true">Nothing uploaded</button>
+<button role="tab" id="t-bal" aria-controls="p-bal" aria-selected="false" tabindex="-1">Balance check</button>
+<button role="tab" id="t-time" aria-controls="p-time" aria-selected="false" tabindex="-1">Minutes saved</button>
+<button role="tab" id="t-fmt" aria-controls="p-fmt" aria-selected="false" tabindex="-1">Your formats</button>
+</div>
+<div class="panels">
+<div class="panel" role="tabpanel" id="p-priv" aria-labelledby="t-priv">
+<div class="viz viz-priv" aria-hidden="true"><div class="laptop"><span>statement.pdf</span><span class="arrow">→</span><span>statement.xlsx</span></div><div class="cloud">Our servers<b>0 bytes of your statement</b></div></div>
+<div class="ptext"><h3>Your statement stays on your computer</h3><p>The PDF is read by your own browser. Open your browser's developer tools on the Network tab while you convert: the page loads its own standard files, and no request carries your statement. <a href="/security/">See exactly what loads</a>.</p></div>
+</div>
+<div class="panel" role="tabpanel" id="p-bal" aria-labelledby="t-bal" hidden>
+<div class="viz viz-bal" aria-hidden="true"><div class="eq"><span><small>Opening</small>5,234.10</span><i>+</i><span><small>In</small>38,055.42</span><i>−</i><span><small>Out</small>26,704.08</span><i>=</i><span class="good"><small>Closing</small>16,585.44 ✓</span></div></div>
+<div class="ptext"><h3>Every file is checked against the statement</h3><p>The sample statement above: opening balance, plus deposits, minus withdrawals, lands exactly on the closing balance printed on the PDF. You see that check on every file you convert. If it's off, you see by how much.</p></div>
+</div>
+<div class="panel" role="tabpanel" id="p-time" aria-labelledby="t-time" hidden>
+<div class="viz viz-time" aria-hidden="true"><div class="bar"><b>Copy-paste and fix by hand</b><span class="fill slow"></span><em>30 to 60 min</em></div><div class="bar"><b>StatementFlip</b><span class="fill fast"></span><em>under a minute</em></div></div>
+<div class="ptext"><h3>Seconds, not an afternoon</h3><p>Copy-paste scrambles columns, splits descriptions across lines and loses negative signs, so you end up retyping. Here you drop the PDF, check the preview and click Download.</p></div>
+</div>
+<div class="panel" role="tabpanel" id="p-fmt" aria-labelledby="t-fmt" hidden>
+<div class="viz viz-fmt" aria-hidden="true"><span>Excel (.xlsx)</span><span>CSV</span><span>QuickBooks Online CSV</span><span>Xero CSV</span><span>QuickBooks .QBO <small>beta</small></span><span>OFX <small>beta</small></span></div>
+<div class="ptext"><h3>Ready for where it's going</h3><p>Pick the format in the download menu: a spreadsheet with real dates and numbers, or a CSV laid out for your QuickBooks Online or Xero bank upload.</p></div>
+</div>
+</div>
+<div class="firstrev">
+<div class="fr-badge" aria-hidden="true">★</div>
+<div><h3>Be one of our first reviewers</h3>
+<p>StatementFlip is new, so there are no customer reviews here yet, and we won't make any up. If you convert a statement, tell us honestly how it went. We'll only publish your words with your permission.</p>
+<a class="btn ghost" href="mailto:support@senkarconsulting.com?subject=My%20StatementFlip%20review">Send your review</a></div>
+</div>
+</section><!--/PROOF-->
+
+<!--PRICING--><section class="wrap pricing" id="pricing"><h2>Pricing</h2>
+<p class="sub">Start free. Pay only when you need the whole statement.</p>
 <div class="plans">
- <div class="plan"><h3>Free</h3><p class="price">$0</p><p>Free: see and download the first 10 transactions of any statement. Unlock the full statement from $9.</p></div>
- <div class="plan"><h3>One statement</h3><p class="price">$9</p><p>One statement, any length. No account, no subscription.</p><a class="btn" data-checkout="single" href="#">Buy for $9</a></div>
- <div class="plan hot"><h3>Unlimited</h3><p class="price">$19<small>/month</small></p><p>Convert as many statements as you like. Cancel anytime.</p><a class="btn" data-checkout="monthly" href="#">Get unlimited</a></div>
- <div class="plan"><h3>Firm</h3><p class="price">$97<small>/month</small></p><p>Unlimited for up to 5 people at one firm. Cancel anytime.</p><a class="btn" data-checkout="firm" href="#">Get the firm plan</a></div>
- <div class="plan"><h3>Lifetime</h3><p class="price">$297</p><p>Pay once, unlimited forever. Founding members only: limited to the first 25.</p><a class="btn" data-checkout="lifetime" href="#">Become a founding member</a></div>
+ <div class="plan"><h3>Free</h3><p class="price">$<span class="num">0</span></p><p>Free: see and download the first 10 transactions of any statement. Unlock the full statement from $9.</p><a class="btn ghost" href="#top">Try it now</a></div>
+ <div class="plan"><h3>One statement</h3><p class="price">$<span class="num">9</span></p><p>One statement, any length. No account, no subscription.</p><a class="btn" data-checkout="single" href="#">Buy for $9</a></div>
+ <div class="plan hot"><h3>Unlimited</h3><p class="price">$<span class="num">19</span><small>/month</small></p><p>Convert as many statements as you like. Cancel anytime.</p><a class="btn" data-checkout="monthly" href="#">Get unlimited</a></div>
+ <div class="plan wide"><h3>Firm</h3><p class="price">$<span class="num">97</span><small>/month</small></p><p>Unlimited for up to 5 people at one firm. Cancel anytime.</p><a class="btn" data-checkout="firm" href="#">Get the firm plan</a></div>
+ <div class="plan wide"><h3>Lifetime</h3><p class="price">$<span class="num">297</span></p><p>Pay once, unlimited forever. Founding members only: limited to the first 25.</p><a class="btn" data-checkout="lifetime" href="#">Become a founding member</a></div>
 </div>
 <p class="have">Paid? You're unlocked on the device you paid from.<span id="plan-badge"></span> New device or cleared your browser? <a href="/restore/">Restore your access</a>. Need a hand? Email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a>.</p>
 </section><!--/PRICING-->
+
+<!--TOOLS--><section class="wrap tools" id="tools"><h2>More from StatementFlip</h2>
+<p class="sub">One converter, set up for the job you're doing. Each runs in your browser, with the same free preview.</p>
+<!-- To add a tool: add a card here, and its page in tools/pages.mjs (it also goes into the sitemap). -->
+<div class="toolgrid">
+<a class="tool" href="/bank-statement-to-excel/"><span class="ti ti-x" aria-hidden="true">XLSX</span><b>Bank statement to Excel</b><span>Real dates and numbers, filters on, ready to sort and total.</span></a>
+<a class="tool" href="/bank-statement-to-csv/"><span class="ti ti-c" aria-hidden="true">CSV</span><b>Bank statement to CSV</b><span>Plain CSV, or laid out for QuickBooks Online or Xero bank upload.</span></a>
+<a class="tool" href="/credit-card-statement-to-excel/"><span class="ti ti-cc" aria-hidden="true">CARD</span><b>Credit card statement to Excel</b><span>Charges, payments and refunds on their own rows, with the right sign.</span></a>
+<a class="tool" href="/for-bookkeepers/"><span class="ti ti-b" aria-hidden="true">PRO</span><b>For bookkeepers</b><span>Unlimited client statements, a balance check on every file.</span></a>
+<a class="tool" href="/#faq"><span class="ti ti-q" aria-hidden="true">QBO</span><b>QuickBooks .QBO and OFX <em>beta</em></b><span>In the download menu of every converter. Still in beta, so check the import.</span></a>
+<a class="tool" href="/banks/chase/"><span class="ti ti-bk" aria-hidden="true">BANK</span><b>Bank guides</b><span>Chase, Bank of America, Wells Fargo, Capital One and Citi: where to find the PDF.</span></a>
+</div></section><!--/TOOLS-->
+
+<!--REVIEWS--><section class="wrap reviews" id="reviews" data-view="grid" hidden></section>
 
 <!--ABOUT--><section class="wrap about" id="about"><h2>Who's behind StatementFlip</h2>
 <p>StatementFlip is made by John Senkar at Senkar Consulting, LLC in Wheat Ridge, Colorado. It's a small, independent product, not a big platform. If something doesn't work on your statement, email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> and a person will reply. Read <a href="/security/">how your statements are handled</a>.</p></section><!--/ABOUT-->
 
 <!--FAQ--><section class="wrap faq" id="faq"><h2>FAQ</h2>
-<h3>Is it safe to convert my bank statement here?</h3><p>Yes. Most converters upload your statement to their servers. Ours doesn't. The PDF is read by your own browser, so there's nothing for us to store or leak.</p>
-<h3>Does it work on scanned statements?</h3><p>It works on digital PDFs downloaded from online banking (the vast majority). Photographed or scanned paper statements aren't supported yet.</p>
-<h3>Which banks are supported?</h3><p>Most US banks and credit cards with downloadable PDF statements. If yours doesn't convert cleanly, email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> and we'll look into it.</p>
-<h3>Can I import the file into QuickBooks or Xero?</h3><p>Yes. Pick the QuickBooks Online or Xero CSV in the download menu and use the bank-feed upload. The .QBO and OFX files are in beta.</p>
-<h3>Why not just copy-paste from the PDF?</h3><p>Copy-paste scrambles columns, splits descriptions across lines, and loses negative signs. The converter keeps every transaction on one row with the right sign.</p>
-<h3>Do you offer refunds?</h3><p>If a statement doesn't convert correctly, email us and we'll fix it or refund you. See the <a href="/refunds/">refund policy</a>.</p>
+<details open><summary><h3>Is it safe to convert my bank statement here?</h3></summary><p>Yes. Most converters upload your statement to their servers. Ours doesn't. The PDF is read by your own browser, so there's nothing for us to store or leak.</p></details>
+<details><summary><h3>Does it work on scanned statements?</h3></summary><p>It works on digital PDFs downloaded from online banking (the vast majority). Photographed or scanned paper statements aren't supported yet.</p></details>
+<details><summary><h3>Which banks are supported?</h3></summary><p>Most US banks and credit cards with downloadable PDF statements. If yours doesn't convert cleanly, email <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> and we'll look into it.</p></details>
+<details><summary><h3>Can I import the file into QuickBooks or Xero?</h3></summary><p>Yes. Pick the QuickBooks Online or Xero CSV in the download menu and use the bank-feed upload. The .QBO and OFX files are in beta.</p></details>
+<details><summary><h3>Why not just copy-paste from the PDF?</h3></summary><p>Copy-paste scrambles columns, splits descriptions across lines, and loses negative signs. The converter keeps every transaction on one row with the right sign.</p></details>
+<details><summary><h3>Do you offer refunds?</h3></summary><p>If a statement doesn't convert correctly, email us and we'll fix it or refund you. See the <a href="/refunds/">refund policy</a>.</p></details>
 </section><!--/FAQ-->
+
+<!--CTA--><section class="cta"><div class="wrap"><h2>Your next statement,<br><span class="grad">flipped in seconds.</span></h2><p>Free preview. No sign-up. Nothing uploaded.</p><a class="btn big" href="#top">Convert a statement free</a></div></section><!--/CTA-->
+
+<!--LINKS--><nav class="wrap morelinks" aria-label="Converters and banks"><div><b>Converters</b><a href="/bank-statement-to-excel/">Bank statement to Excel</a><a href="/bank-statement-to-csv/">Bank statement to CSV</a><a href="/credit-card-statement-to-excel/">Credit card statement to Excel</a><a href="/for-bookkeepers/">For bookkeepers</a></div><div><b>Banks</b><a href="/banks/chase/">Chase</a><a href="/banks/bank-of-america/">Bank of America</a><a href="/banks/wells-fargo/">Wells Fargo</a><a href="/banks/capital-one/">Capital One</a><a href="/banks/citi/">Citi</a></div><div><b>Company</b><a href="/security/">Security and privacy</a><a href="/restore/">Restore access</a><a href="/refunds/">Refunds</a><a href="mailto:support@senkarconsulting.com">Contact</a></div></nav><!--/LINKS-->
 </main>
 <footer><div class="wrap">StatementFlip is a product of Senkar Consulting, LLC · <a href="mailto:support@senkarconsulting.com">support@senkarconsulting.com</a> · <a href="/security/">Security and privacy</a> · <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/refunds/">Refunds</a> · StatementFlip is not affiliated with any bank. Bank names are used only to describe compatible statements.</div></footer>
 
