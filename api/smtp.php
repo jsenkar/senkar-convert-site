@@ -15,13 +15,14 @@ function sf_send_mail($to, $subject, $body) {
     if (!defined('SMTP_USER') || !defined('SMTP_PASS') || SMTP_PASS === '' || stripos(SMTP_PASS, 'PASTE') !== false) return $fallback();
     $host = defined('SMTP_HOST') ? SMTP_HOST : 'smtp.titan.email';
     $port = defined('SMTP_PORT') ? SMTP_PORT : 465;
-    if (defined('SMTP_FROM')) $from = SMTP_FROM;
+    // Titan only lets the mailbox send as itself (aliases are rejected), so send From the mailbox; replies go to support@.
+    $reply = $from; $from = defined('SMTP_FROM') ? SMTP_FROM : SMTP_USER;
     $fp = @stream_socket_client(($port == 465 ? 'ssl://' : 'tcp://') . "$host:$port", $en, $es, 15);
     if (!$fp) { error_log("smtp connect failed: $es"); return $fallback(); }
     stream_set_timeout($fp, 15);
     $read = function () use ($fp) { $d = ''; while (($l = fgets($fp, 1024)) !== false) { $d .= $l; if (strlen($l) < 4 || $l[3] === ' ') break; } return $d; };
     $cmd = function ($c, $ok) use ($fp, $read) { if ($c !== null) fwrite($fp, $c . "\r\n"); $r = $read(); $GLOBALS['sf_smtp_log'][] = substr(trim($r), 0, 200); if ((int)substr($r, 0, 3) !== $ok) { error_log('smtp: ' . trim($r)); return false; } return true; };
-    $msg = "From: StatementFlip <$from>\r\nTo: <$to>\r\nReply-To: $from\r\nSubject: $subject\r\nDate: " . date('r') . "\r\nMessage-ID: <" . bin2hex(random_bytes(12)) . "@senkarconsulting.com>\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
+    $msg = "From: StatementFlip <$from>\r\nTo: <$to>\r\nReply-To: $reply\r\nSubject: $subject\r\nDate: " . date('r') . "\r\nMessage-ID: <" . bin2hex(random_bytes(12)) . "@senkarconsulting.com>\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
          . preg_replace('/^\./m', '..', str_replace("\n", "\r\n", str_replace("\r\n", "\n", $body)));
     $ok = $cmd(null, 220) && $cmd('EHLO statementflip.senkarconsulting.com', 250) && $cmd('AUTH LOGIN', 334) && $cmd(base64_encode(SMTP_USER), 334) && $cmd(base64_encode(SMTP_PASS), 235)
        && $cmd("MAIL FROM:<$from>", 250) && $cmd("RCPT TO:<$to>", 250) && $cmd('DATA', 354) && $cmd($msg . "\r\n.", 250);
