@@ -26,4 +26,6 @@ dialog{border:0;border-radius:12px;padding:22px;max-width:420px;width:92%}dialog
 
 .sample .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}.sample h3{margin:6px 0}.pdfpeek{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;font:12px/1.6 ui-monospace,Menlo,monospace;overflow:auto;margin:0;white-space:pre}.balcheck{margin-top:14px}
 .about p{max-width:720px}
-@media(max-width:700px){.sample .cols{grid-template-columns:1fr}}
+.sample .cols>div{min-width:0}
+@media(max-width:700px){.sample .cols{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.top .wrap{height:auto;min-height:56px;padding-top:8px;padding-bottom:8px;gap:8px}nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:2px 12px;font-size:14px}nav a{margin-left:0}}
