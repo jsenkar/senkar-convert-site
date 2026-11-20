@@ -58,7 +58,7 @@ a{color:var(--acc2)}
 .top{position:sticky;top:0;z-index:60;background:rgba(5,6,11,.62);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.07);transition:background .3s}
 .top.scrolled{background:rgba(5,6,11,.82)}
 .top .wrap{height:52px}.top .brand{color:#fff;font-size:17px;letter-spacing:-.02em;display:inline-flex;align-items:center;gap:8px}
-.top .brand::before{content:"";width:20px;height:20px;border-radius:6px;background:conic-gradient(from 210deg,#7db0ff,#b69bff,#ff9ad5,#7db0ff);box-shadow:0 0 18px rgba(125,176,255,.6)}
+.top .brand::before{content:"";width:24px;height:24px;border-radius:7px;background:url(/logo-mark.svg) center/contain no-repeat;box-shadow:0 0 18px rgba(155,123,255,.45)}.brand .bf{background:linear-gradient(90deg,#7db0ff,#b69bff,#ff9ad5);-webkit-background-clip:text;background-clip:text;color:transparent}
 .top nav{display:flex;align-items:center}.top nav a{color:#c9cdd8;font-size:13.5px;margin-left:22px;text-decoration:none;transition:color .2s}.top nav a:hover{color:#fff}
 .top nav a.navcta{background:#fff;color:#05060b;padding:6px 14px;border-radius:999px;font-weight:600;transition:transform .2s,box-shadow .2s}.top nav a.navcta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125,176,255,.45);color:#05060b}
 
