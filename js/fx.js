@@ -56,7 +56,7 @@
     var steps = $$(".story-steps li", story), pre = $(".pdfpeek", story);
     $$(".sheet tbody tr", story).forEach(function (tr, i) { tr.style.setProperty("--r", 250 + i * 120 + "ms"); });
     if (pre) pre.innerHTML = pre.textContent.split("\n").map(function (l) { return "<span>" + l.replace(/&/g, "&amp;").replace(/</g, "&lt;") + "</span>"; }).join("");
-    var DUR = [3000, 3200, 3000, 3600], cur = 3, timer = null, playing = !reduce, visible = false, hover = false;
+    var DUR = [4500, 5000, 4500, 5500], cur = 3, timer = null, playing = !reduce, visible = false, hover = false;
     function show(n) {
       cur = n; story.setAttribute("data-step", n);
       steps.forEach(function (li, i) { li.classList.toggle("on", i === n); li.setAttribute("aria-current", i === n ? "step" : "false"); li.style.setProperty("--dur", DUR[i] + "ms"); var c = li.cloneNode(true); });

@@ -26,22 +26,21 @@ document.querySelectorAll("[data-checkout]").forEach((a) => { if (CONFIG.live) {
 if (document.body.dataset.fmt) $("fmt").value = document.body.dataset.fmt;
 const drop = $("drop"), input = $("file");
 drop.addEventListener("click", () => input.click());
-// "Try it free" and other CTAs: bring the drop zone into view and open the file picker (needs this click as the user gesture).
+// "Try it free" and other CTAs: glide to the drop zone and highlight it. The file picker opens only when the visitor clicks the drop zone or its Convert button.
 function tryIt(e) {
   e.preventDefault();
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const r = drop.getBoundingClientRect(), y0 = scrollY, y1 = Math.max(0, y0 + r.top - (innerHeight - r.height) / 2), d = y1 - y0;
   const dur = reduce || Math.abs(d) < 40 ? 0 : Math.min(600, 350 + Math.abs(d) / 16), t0 = performance.now();
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-  // The picker is opened from a timer started inside this click, so Safari and Chrome still count it as the user's click (kept under 1s).
-  setTimeout(() => input.click(), dur ? dur + 150 : 0);
   const done = () => { try { drop.focus({ preventScroll: true }); } catch {} drop.classList.remove("pulse"); void drop.offsetWidth; drop.classList.add("pulse"); setTimeout(() => drop.classList.remove("pulse"), 1600); };
   if (!dur) { scrollTo(0, y1); return done(); }
   document.documentElement.style.scrollBehavior = "auto";
   (function step(now) { const t = Math.min((now - t0) / dur, 1); scrollTo(0, y0 + d * ease(t)); if (t < 1) requestAnimationFrame(step); else { document.documentElement.style.scrollBehavior = ""; done(); } })(t0);
 }
 document.querySelectorAll('a[href="#top"], a[href="/#top"], [data-try]').forEach((a) => a.addEventListener("click", tryIt));
-if (location.hash === "#top") setTimeout(() => { drop.scrollIntoView({ block: "center" }); try { drop.focus({ preventScroll: true }); } catch {} }, 150);
+// Never scroll on page load. Drop a leftover #top from the address so a reload stays where it is.
+if (location.hash === "#top") history.replaceState(null, "", location.pathname + location.search);
 drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } });
 ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
 ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
@@ -69,7 +68,7 @@ async function handle(file) {
     const res = parseStatement(pages);
     if (!res.transactions.length) return status(`We couldn't find transactions in this PDF. Email ${CONFIG.supportEmail} and we'll add support for your bank, usually within a day. Your file was never uploaded, so you can describe the bank instead.`, true);
     current = res;
-    render();
+    render(true);
     status("");
   } catch (e) {
     console.error(e);
@@ -77,7 +76,7 @@ async function handle(file) {
   }
 }
 
-function render() {
+function render(scroll) {
   const r = current, full = unlocked();
   const rows = full ? r.transactions : r.transactions.slice(0, CONFIG.freeRows);
   const tb = $("tbl").querySelector("tbody");
@@ -116,7 +115,7 @@ function render() {
     
   }
   $("result").hidden = false;
-  $("result").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (scroll) $("result").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function unlocked() { return !!current && canExportFull(current); }
