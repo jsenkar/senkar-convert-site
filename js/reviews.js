@@ -8,7 +8,7 @@ async function init() {
   let data;
   try { data = await (await fetch("/data/reviews.json", { cache: "no-cache" })).json(); } catch { return; }
   const all = Array.isArray(data.reviews) ? data.reviews : [];
-  const valid = (r) => r && typeof r.text === "string" && r.text.trim() && r.name && Number(r.rating) >= 1 && Number(r.rating) <= 5;
+  const valid = (r) => r && typeof r.text === "string" && r.text.trim() && r.headline && r.name && Number(r.rating) >= 1 && Number(r.rating) <= 5;
   const real = all.filter((r) => valid(r) && r.placeholder === false && r.permission === true && r.source);
   const list = real.length ? real : preview ? all.filter(valid) : [];
   if (!list.length) return; // nothing real: render nothing at all
@@ -16,22 +16,34 @@ async function init() {
   const view = root.dataset.view === "carousel" ? "carousel" : "grid";
   const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
 
-  const h = el("h2", null, "What customers say"); root.appendChild(h);
+  root.appendChild(el("h2", null, "What bookkeepers say after the first statement"));
   if (isPreview) root.appendChild(el("p", "rv-preview", "PREVIEW ONLY: these are placeholders and are hidden from visitors until you add real reviews."));
-  const wrap = el("div", "rv-" + view);
-  wrap.setAttribute("role", "list");
-  for (const r of list) {
-    const card = el("figure", "rv-card"); card.setAttribute("role", "listitem");
-    const top = el("div", "rv-top");
+  const groups = [...new Set(list.map((r) => r.situation).filter(Boolean))];
+  const cards = [];
+  const wrap = el("div", "rv-" + view); wrap.setAttribute("role", "list");
+  if (groups.length > 1) {
+    const bar = el("div", "rv-filters"); bar.setAttribute("role", "group"); bar.setAttribute("aria-label", "Filter reviews by situation");
+    for (const g of ["All", ...groups]) {
+      const b = el("button", "rv-chip", g); b.type = "button"; b.setAttribute("aria-pressed", g === "All" ? "true" : "false");
+      b.onclick = () => { bar.querySelectorAll(".rv-chip").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); cards.forEach((c) => { c.hidden = !(g === "All" || c.dataset.situation === g); }); };
+      bar.appendChild(b);
+    }
+    root.appendChild(bar);
+  }
+  list.forEach((r, i) => {
+    const card = el("figure", "rv-card"); card.setAttribute("role", "listitem"); card.dataset.situation = r.situation || ""; card.style.animationDelay = i * 70 + "ms";
+    card.appendChild(el("p", "rv-headline", "\u201c" + r.headline.replace(/^PLACEHOLDER:\s*/, "") + "\u201d"));
+    if (r.metric) card.appendChild(el("span", "rv-metric", r.metric));
+    const stars = el("div", "rv-stars", "\u2605".repeat(r.rating) + "\u2606".repeat(5 - r.rating)); stars.setAttribute("role", "img"); stars.setAttribute("aria-label", r.rating + " out of 5 stars");
+    card.append(stars, el("blockquote", null, r.text));
     const initials = r.name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
     const av = el("span", "rv-av", initials); av.setAttribute("aria-hidden", "true");
-    const who = el("div", "rv-who"); who.append(el("b", null, r.name), el("span", null, r.role || ""));
-    top.append(av, who);
-    const stars = el("div", "rv-stars", "★".repeat(r.rating) + "☆".repeat(5 - r.rating)); stars.setAttribute("role", "img"); stars.setAttribute("aria-label", r.rating + " out of 5 stars");
-    const q = el("blockquote", null, r.text);
-    const foot = el("figcaption"); if (r.source) foot.appendChild(el("span", "rv-badge", r.source));
-    card.append(top, stars, q, foot); wrap.appendChild(card);
-  }
+    const who = el("div", "rv-who"); who.append(el("b", null, r.name), el("span", null, [r.role, r.location].filter(Boolean).join(" \u00b7 ")));
+    const foot = el("figcaption", "rv-foot"); foot.append(av, who);
+    if (r.verified === true) foot.appendChild(el("span", "rv-badge", "\u2713 Verified customer"));
+    else if (r.source) foot.appendChild(el("span", "rv-badge rv-src", r.source));
+    card.appendChild(foot); wrap.appendChild(card); cards.push(card);
+  });
   if (view === "carousel") {
     const mk = (t, d) => { const b = el("button", "rv-nav", t); b.type = "button"; b.setAttribute("aria-label", d < 0 ? "Previous review" : "Next review"); b.onclick = () => wrap.scrollBy({ left: d * wrap.clientWidth * 0.9, behavior: "smooth" }); return b; };
     const nav = el("div", "rv-navs"); nav.append(mk("‹", -1), mk("›", 1)); root.appendChild(wrap); root.appendChild(nav);

@@ -1,10 +1,73 @@
 {
-  "_how_to_add_a_real_review": "Replace or add entries below. A review only appears on the live site when placeholder is false AND permission is true AND source and a rating are filled in. Never paste a review you did not receive from a real customer. Entries with placeholder true are shown ONLY when you open the site with ?previewReviews=1, and never appear in search-engine markup.",
-  "business": { "name": "StatementFlip", "url": "https://statementflip.senkarconsulting.com/" },
-  "reviews": [
-    { "placeholder": true, "permission": false, "name": "Sample Name A.", "role": "Bookkeeper", "rating": 5, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Verified Client", "date": "2026-01-01", "permission_note": "" },
-    { "placeholder": true, "permission": false, "name": "Sample Name B.", "role": "Small-firm owner", "rating": 5, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Google", "date": "2026-01-01", "permission_note": "" },
-    { "placeholder": true, "permission": false, "name": "Sample Name C.", "role": "Freelancer", "rating": 4, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Verified Client", "date": "2026-01-01", "permission_note": "" },
-    { "placeholder": true, "permission": false, "name": "Sample Name D.", "role": "Accountant", "rating": 5, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Google", "date": "2026-01-01", "permission_note": "" }
-  ]
+ "_how_to_add_a_real_review": "Add a real review by copying an entry and filling every field. It appears on the live site only when placeholder is false AND permission is true AND source, rating, headline and text are filled. headline = the one-line turning point (shown as the pull-quote). situation = filter group (Solo bookkeeper, Firm, One-off). metric = optional short result like '40 min to 3 min'. verified = true only if you confirmed they paid or used it. Never write a review yourself. Entries with placeholder true show ONLY at ?previewReviews=1 and never in search-engine markup.",
+ "business": {
+  "name": "StatementFlip",
+  "url": "https://statementflip.senkarconsulting.com/"
+ },
+ "reviews": [
+  {
+   "placeholder": true,
+   "permission": false,
+   "verified": false,
+   "name": "Sample A.",
+   "role": "Solo bookkeeper",
+   "location": "Denver, CO",
+   "situation": "Solo bookkeeper",
+   "rating": 5,
+   "headline": "PLACEHOLDER: I stopped retyping minus signs.",
+   "text": "PLACEHOLDER layout text. Replace with a real customer's own words about the moment the statement came out clean and the balances matched.",
+   "metric": "40 min to 3 min",
+   "source": "Verified Client",
+   "date": "2026-01-01",
+   "permission_note": ""
+  },
+  {
+   "placeholder": true,
+   "permission": false,
+   "verified": false,
+   "name": "Sample B.",
+   "role": "Firm owner, 4 staff",
+   "location": "Austin, TX",
+   "situation": "Firm",
+   "rating": 5,
+   "headline": "PLACEHOLDER: I could finally tell a client where their PDF went.",
+   "text": "PLACEHOLDER layout text. Replace with a real customer's words about the security question and what settled it.",
+   "metric": "",
+   "source": "Verified Client",
+   "date": "2026-01-01",
+   "permission_note": ""
+  },
+  {
+   "placeholder": true,
+   "permission": false,
+   "verified": false,
+   "name": "Sample C.",
+   "role": "Freelance designer",
+   "location": "Portland, OR",
+   "situation": "One-off",
+   "rating": 4,
+   "headline": "PLACEHOLDER: Tax prep went from dread to one afternoon.",
+   "text": "PLACEHOLDER layout text. Replace with a real customer's words about a single statement they needed for taxes or a loan.",
+   "metric": "",
+   "source": "Google",
+   "date": "2026-01-01",
+   "permission_note": ""
+  },
+  {
+   "placeholder": true,
+   "permission": false,
+   "verified": false,
+   "name": "Sample D.",
+   "role": "Bookkeeper, 30 clients",
+   "location": "Raleigh, NC",
+   "situation": "Solo bookkeeper",
+   "rating": 5,
+   "headline": "PLACEHOLDER: The balance check caught a bad row.",
+   "text": "PLACEHOLDER layout text. Replace with a real customer's words about trusting the totals.",
+   "metric": "",
+   "source": "Google",
+   "date": "2026-01-01",
+   "permission_note": ""
+  }
+ ]
 }
