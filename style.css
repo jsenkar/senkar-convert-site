@@ -29,3 +29,11 @@ dialog{border:0;border-radius:12px;padding:22px;max-width:420px;width:92%}dialog
 .sample .cols>div{min-width:0}
 @media(max-width:700px){.sample .cols{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:600px){.top .wrap{height:auto;min-height:56px;padding-top:8px;padding-bottom:8px;gap:8px}nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:2px 12px;font-size:14px}nav a{margin-left:0}}
+.reviews h2{margin-bottom:16px}.rv-preview{background:#fff7e6;border:1px solid #f0d28a;color:#7a4b00;padding:8px 12px;border-radius:8px;font-size:14px}
+.rv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.rv-carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.rv-carousel .rv-card{flex:0 0 min(86%,340px);scroll-snap-align:start}
+.rv-card{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}.rv-card blockquote{margin:8px 0 12px;color:var(--ink)}
+.rv-top{display:flex;gap:10px;align-items:center}.rv-av{width:38px;height:38px;border-radius:50%;background:var(--acc);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.rv-who{display:flex;flex-direction:column;line-height:1.25}.rv-who span{color:var(--mut);font-size:13px}.rv-stars{color:#e0a100;letter-spacing:2px;margin-top:10px}
+.rv-badge{display:inline-block;font-size:12px;color:var(--ok);background:#eaf7f0;border:1px solid #bfe5d1;border-radius:99px;padding:2px 10px}
+.rv-navs{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}.rv-nav{border:1px solid var(--line);background:#fff;border-radius:8px;width:36px;height:36px;font-size:20px;cursor:pointer}

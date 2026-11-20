@@ -1,0 +1,10 @@
+{
+  "_how_to_add_a_real_review": "Replace or add entries below. A review only appears on the live site when placeholder is false AND permission is true AND source and a rating are filled in. Never paste a review you did not receive from a real customer. Entries with placeholder true are shown ONLY when you open the site with ?previewReviews=1, and never appear in search-engine markup.",
+  "business": { "name": "StatementFlip", "url": "https://statementflip.senkarconsulting.com/" },
+  "reviews": [
+    { "placeholder": true, "permission": false, "name": "Sample Name A.", "role": "Bookkeeper", "rating": 5, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Verified Client", "date": "2026-01-01", "permission_note": "" },
+    { "placeholder": true, "permission": false, "name": "Sample Name B.", "role": "Small-firm owner", "rating": 5, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Google", "date": "2026-01-01", "permission_note": "" },
+    { "placeholder": true, "permission": false, "name": "Sample Name C.", "role": "Freelancer", "rating": 4, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Verified Client", "date": "2026-01-01", "permission_note": "" },
+    { "placeholder": true, "permission": false, "name": "Sample Name D.", "role": "Accountant", "rating": 5, "text": "PLACEHOLDER: replace with a real customer's words.", "source": "Google", "date": "2026-01-01", "permission_note": "" }
+  ]
+}
