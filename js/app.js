@@ -26,6 +26,10 @@ document.querySelectorAll("[data-checkout]").forEach((a) => { if (CONFIG.live) {
 if (document.body.dataset.fmt) $("fmt").value = document.body.dataset.fmt;
 const drop = $("drop"), input = $("file");
 drop.addEventListener("click", () => input.click());
+// "Try it free" and other CTAs: bring the drop zone into view and open the file picker (needs this click as the user gesture).
+function tryIt(e) { e.preventDefault(); drop.scrollIntoView({ behavior: "smooth", block: "center" }); try { drop.focus({ preventScroll: true }); } catch {} input.click(); }
+document.querySelectorAll('a[href="#top"], a[href="/#top"], [data-try]').forEach((a) => a.addEventListener("click", tryIt));
+if (location.hash === "#top") setTimeout(() => { drop.scrollIntoView({ block: "center" }); try { drop.focus({ preventScroll: true }); } catch {} }, 150);
 drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } });
 ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
 ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
